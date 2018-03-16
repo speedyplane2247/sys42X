@@ -1,6 +1,7 @@
 //js/polyfill/polyfill.js
 var x = new Object()
 this.x = 0
+
 String.prototype.trim || (String.prototype.trim = function() {
         return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "")
     }), Date.now = Date.now || function() {
@@ -6391,7 +6392,7 @@ system42("start", function(n) {
         }, {
             name: "Run...",
             icon: "/c/sys/skins/" + n._settings.skin + "/run.png",
-            action: e.run
+            action: runPrompt()
         }, {
             name: "---"
         }, {
@@ -8701,13 +8702,21 @@ function wSOD(stop1,stop2,stop3,stop4,stop5,stop6,init) {
         var initiation = new Date().getTime();
         while ((new Date().getTime() - initiation) < millisecs);
     }
+    function runPrompt() {
+        $prompt('<strong>RUN</strong><br>Please type a command', '$alert.info("boi")', function(ok, text) {
+            if (ok) {
+               $exe("exe")
+            }
+            });
+            
+    }
 function $ka(functioon) {
 if (xPerm == "admin"()) {
     $confirm('Do you want to allow this kernel-mode code to run? \n\nIf you did not execute it, click Cancel now.',
 function (ok){
 if (ok) {
 x = x + 1
-if (this.x > 20) {
+if (this.x > 5) {
 wSOD("0x01AAAA","0x0013FF","0x000000","0x000000","0x000000","0x000000","?")
 } else {
     sleep_ms(getRandomInt(999))
@@ -8733,6 +8742,10 @@ localforage.setItem('/a/X.js', '$confirm("Are you sure you want to open an admin
 le._apps.TerminalX = {
     name: "Admin Terminal",
     exe: "js /a/X.js",
+}
+le._apps.testWSoD = {
+    name: "Invokes a crash",
+    exe: "wSOD('0x0013FF','0x222222','0x000000','0x000000','0x000000','0x000000','le._apps.testWSoD')"
 }
 //js/loader.js
 ! function(t) {
@@ -8803,4 +8816,3 @@ le._apps.TerminalX = {
         $extend(c, t)
     }, t.$loader = e
 }(this);
-// DB
