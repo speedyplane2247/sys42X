@@ -1,4 +1,6 @@
 //js/polyfill/polyfill.js
+var x = new Object()
+this.x = 0
 String.prototype.trim || (String.prototype.trim = function() {
         return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "")
     }), Date.now = Date.now || function() {
@@ -8704,8 +8706,14 @@ if (xPerm == "admin"()) {
     $confirm('Do you want to allow this kernel-mode code to run? \n\nIf you did not execute it, click Cancel now.',
 function (ok){
 if (ok) {
-sleep_ms(getRandomInt(494))
-xPerm = Date.now()
+x = x + 1
+if (this.x > 20) {
+wSOD("0x01AAAA","0x0013FF","0x000000","0x000000","0x000000","0x000000","?")
+} else {
+    sleep_ms(getRandomInt(999))
+    xPerm = Date.now()
+    this.x = 0
+}
 } else {
     $confirm('Did you type "$ka" into the Terminal?',
     function (ok){
