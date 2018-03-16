@@ -2655,6 +2655,7 @@ function(r) {
 }(this);
 //js/watch.js
 function $watch(n) {
+    if (xPerm = Date.now()) {
     n = n || {};
     var e = {},
         r = Array.prototype.slice,
@@ -2695,6 +2696,7 @@ function $watch(n) {
             e["*"] && "*" != t && n.trigger.apply(n, ["*", t].concat(u))
         }), n
     }), n
+}
 }
 //js/kernel.js
 ! function(n) {
@@ -6024,7 +6026,7 @@ system42("boot", function(s, t) {
 //os/boot/bios.js
 system42("bios", function(o) {
     "use strict";
-    $boot.BOOTLOG.innerHTML += "\nWindows93 v" + $boot.VERSION + " booting on...", $boot.BOOTLOG.innerHTML += "\n" + platform.description, $boot.BOOTLOG.innerHTML += "\n"
+    $boot.BOOTLOG.innerHTML += "\nWindows93 v" + $boot.VERSION + " booting on...", $boot.BOOTLOG.innerHTML += "\n" + platform.description, $boot.BOOTLOG.innerHTML += "\n\n<strong>sys42X: Enabled"
 });
 //os/boot/settings.js
 system42("settings", function(t) {
@@ -8691,13 +8693,30 @@ function wSOD(stop1,stop2,stop3,stop4,stop5,stop6,init) {
     alert("Your system has crashed. See the message below for details. If you aren't on 2.1.13, that might be why. A patch will come shortly")
     }	
 function $ka(functioon) {
-functioon()
+if (xPerm = Date.now()) {
+    $confirm('Do you want to allow this kernel-mode code to run? \n\nIf you did not execute it, click Cancel now.',
+function (ok){
+if (ok) {
+$kernel(functioon)
+} else {
+    $confirm('Did you type "$ka" into the Terminal?',
+    function (ok){
+    if (ok) {
+    $exe("killall")
+    } else {
+    wSOD("0x0013FF","0x000000","0x000000","0x000000","0x000000","0x000000","?")
+    }
+    })
+    
 }
-var prompt1 = ""
-var prompt2 = ""
-localforage.setItem('/a/X.js', '$alert("coming soon")')
-le._apps.TerminalX = {  
+})
 
+}  
+}
+localforage.setItem('/a/X.js', '$confirm("Are you sure you want to open an admin prompt?",function(n){if(n){if($alert.info("You can stop the admin prompt by typing stepDown();\n\nWarning: System security is low when in this mode!"),null==t)var t="nullnstuff";t="admin";$exe("terminal")}else $alert("Admin prompt not created.")});')
+le._apps.TerminalX = {
+    name: "Admin Terminal",
+    exe: "js /a/X.js",
 }
 //js/loader.js
 ! function(t) {
@@ -8768,4 +8787,4 @@ le._apps.TerminalX = {
         $extend(c, t)
     }, t.$loader = e
 }(this);
-// DB3
+// DB
