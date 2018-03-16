@@ -7,3 +7,5 @@ This means no other reasons other than STOP1 caused it
 This happens when an application tries to access the kernel without permission.
 ### 0x01AAAA
 This is called when something is trying to brute force the variable timer.
+### 0x222222
+This is a user-initiated WSoD.
