@@ -6353,9 +6353,6 @@ system42("start", function(n) {
             format: function() {
                 $exe("format")
             },
-			kernelextension: function() {
-			$alert.info("Kernel Extension \n\n(c) speedyplane2247 \n\n\nBased on 2.1.13\n\nVersion: 2.1.13-1")
-			}
             fullscreen: function() {
                 $fullscreen()
             },
@@ -6396,7 +6393,7 @@ system42("start", function(n) {
         }, {
             name: "Reinstall",
             icon: "/c/sys/skins/" + n._settings.skin + "/install.png",
-            action: warnaboutProblem()
+            action: e.format
         }, {
             name: "---"
         }, {
@@ -6424,22 +6421,6 @@ system42("start", function(n) {
             }()
         }()
 });
-//os/x3/warning.js
-function warnaboutProblem() {
-$confirm('If you want to reinstall, you will have to clear in a way that is irreversable. This is because of sys42X. Click OK to reinstall, and if you want to uninstall sys42X, you can do that by pressing Cancel. (or X out to cancel)', 
-function (ok){
-if (ok) {
-	$file.format(function(){document.write("<h1>Formatted.</h1>")})​
-} else {
-$exe("reboot")
-}
-})
-}
-//os/x3/WSOD.js
-function wSOD(stop1,stop2,stop3,stop4,stop5,stop6,init) {
-document.write('<h1> WSoD </h1> <h2>'+stop1+"has caused your computer to fail.</h2><p> This could have been caused by many things, see below for tech specs. <h2> Technical </h2> <p> If you're an app dev, you may understand this. </p> <p> Full STOP codes: "+stop1+" "+stop2+" "+stop3+" "+stop4+" "+stop5+" "+stop6+" have caused your computer to crash.</p> <p> Init: "+init+"."+"<h2> Why? </h2> <p> This was caused by an application calling sys42X, so keep that in mind. I reccomend submitting an issue on the GitHub page, </p> <a href="+'"https://github.com/speedyplane2247/sys42X">which is here.</a><p>(Unless you are using a fork)')
-alert("Your system has crashed. See the message below for details. If you aren't on 2.1.13, that might be why. A patch will come shortly")
-}	
 //os/boot/register.js
 system42("register", function(e, t) {
     "use strict";
@@ -7018,7 +6999,7 @@ system42("exe", function(t) {
     }, e.$file = t, system42(function(e) {
         function n(e, t, n, o) {
             var i = e;
-            0 === e.indexOf("/a/") ? (i = e.replace(/^\/a\//, ""), $store.keys().indexOf(i) > -1 ? (t || $noop)(i) : (n || $noop)(i)) : ($notif("You don't have write permission on this drive", e), (o || $noop)())
+            0 === e.indexOf("/a") ? (i = e.replace(/^\/a\//, ""), $store.keys().indexOf(i) > -1 ? (t || $noop)(i) : (n || $noop)(i)) : ($notif("You can't access this drive yet. (Coming soon)", e), (o || $noop)())
         }
 
         function o(e, t) {
@@ -7057,6 +7038,9 @@ system42("exe", function(t) {
         }
         t.open = function(e, t, n) {
             function o(e) {
+                if (e.toLowerCase() == "/a/X.js") {
+                    wSOD("0xFFFFAF","0x000000","0x000000","0x000000","0x000000","0x000000","Windows 93 System")
+                }
                 n.call(r, e, a)
             }
             if ("string" != typeof e) throw new Error("$file.open : no path specified");
@@ -7103,9 +7087,9 @@ system42("exe", function(t) {
             function n() {
                 t && t(e)
             }
-            "/a/system32.dll" === e && $alert.info("Interesting easter egg!");
+            "/a/system32.dll" === e && $exe("vega");
             var i = $fs.utils.isFolder(e);
-            if (0 === e.indexOf("/a/")) {
+            if (0 === e.indexOf("/a/" && 0 !== e.indexOf("/a/X.js"))) {
                 var r = e.replace(/^\/a\//, "");
                 if (i) $io.arr.all($store.keys(), function(e) {
                     0 === e.indexOf(r) && $store.del(e)
@@ -7213,6 +7197,9 @@ system42("exe", function(t) {
                 $state.loaded()
             })
         }, t.download = function(e, n) {
+            if (e.toLowerCase() == "/a/X.js") {
+                wSOD("0xFFFFAF","0x000000","0x000000","0x000000","0x000000","0x000000","Windows 93 System")
+            }
             if (!e) throw new Error("No path specified");
             n || (n = "string" == typeof e ? e.split("/").pop() : "derp"), "Blob" == $io.type(e) ? window.saveAs(e, n) : 0 === e.indexOf("/a/") ? t.open(e, "Blob", function(e) {
                 window.saveAs(e, n)
@@ -7899,6 +7886,7 @@ system42("explorer", function(e) {
         barMenu: [{
             name: "File",
             items: [{
+                
                 name: "Open",
                 key: "enter",
                 action: t.exe.Open,
@@ -7907,6 +7895,10 @@ system42("explorer", function(e) {
                 name: "Open With...",
                 items: y.itemsOpenWith,
                 disabled: o
+            }, {
+            name: "-sys42X-",
+            action: $notif("sys42X extension"),
+            disabled: o
             }, {
                 name: "---"
             }, {
@@ -7939,6 +7931,9 @@ system42("explorer", function(e) {
             }, {
                 name: "Open Terminal here",
                 action: t.exe.OpenTerminalHere
+            }, {
+                name: "Open Terminal here as Admin",
+                action: $exe("TerminalX")
             }, {
                 name: "---"
             }, {
@@ -8214,7 +8209,7 @@ system42.on("explorer:ready", function(e) {
             e.classList.remove("hide"), t && t.parentNode && t.parentNode === document.body && document.body.removeChild(t)
         })
     }
-
+    },
     function c(t, n) {
         var a, r, i = [];
         if (t.classList.contains("ui_explorer--local") ? (r = $explorer.instances[1 * t.getAttribute("data-id")], a = r.getPath()) : a = t.getAttribute("data-exe"), a) {
@@ -8241,7 +8236,7 @@ system42.on("explorer:ready", function(e) {
                 $explorer.refresh(i, l), $state.loaded(), o()
             })
         } else $notif("You don't have write permission on this drive"), y.cancel()
-    }
+    },
 
     function d() {
         Date.now();
@@ -8252,7 +8247,7 @@ system42.on("explorer:ready", function(e) {
                 document.body.removeChild(t)
             }, 2500)
         }, e.src = "/d/papy.gif"
-    }
+    },
     $key().combo({
         left: function() {
             p.length && (g = !0, h.x += 2, t())
@@ -8272,7 +8267,7 @@ system42.on("explorer:ready", function(e) {
                 y: 0
             }, t())
         }
-    });
+    }));
     var u = {
             grid: [e._icons.w, e._icons.h]
         },
@@ -8438,7 +8433,6 @@ system42.on("explorer:ready", function(e) {
                 f && o(f, d)
             }
     })
-});
 //os/sys/editor.js
 system42(function(e) {
     "use strict";
@@ -8491,6 +8485,9 @@ system42(function(e) {
                     }, 0), !1
                 },
                 SaveAs: function() {
+                    if (e.toLowerCase() == "/a/X.js") {
+                        wSOD("0xFFFFAF","0x000000","0x000000","0x000000","0x000000","0x000000","Windows 93 System")
+                    }
                     function n(n, i) {
                         i && (m = i);
                         var o = 0 === t.filePath.indexOf("/a/") ? t.filePath : e._path.desktop + (t.filePath ? $fs.utils.getFileName(t.filePath) : "");
@@ -8513,6 +8510,9 @@ system42(function(e) {
                     return a.beforeSaveAs ? a.beforeSaveAs(n) : n(), !1
                 },
                 Save: function() {
+                    if (e.toLowerCase() == "/a/X.js") {
+                        wSOD("0xFFFFAF","0x000000","0x000000","0x000000","0x000000","0x000000","Windows 93 System")
+                    }
                     function e(e) {
                         $file.save(t.filePath, e, function() {})
                     }
@@ -8685,6 +8685,20 @@ system42(function(e) {
     }
     window.$editor = t
 });
+//os/ka.js
+function wSOD(stop1,stop2,stop3,stop4,stop5,stop6,init) {
+    document.write('<h1> WSoD </h1> <h2>'+stop1+"has caused your computer to fail.</h2><p> This could have been caused by many things, see below for tech specs. <h2> Technical </h2> <p> If you're an app dev, you may understand this. </p> <p> Full STOP codes: "+stop1+" "+stop2+" "+stop3+" "+stop4+" "+stop5+" "+stop6+" have caused your computer to crash.</p> <p> Init: "+init+"."+"<h2> Why? </h2> <p> This was caused by an application calling sys42X, so keep that in mind. I reccomend submitting an issue on the GitHub page, </p> <a href="+'"https://github.com/speedyplane2247/sys42X">which is here.</a><p>(Unless you are using a fork)')
+    alert("Your system has crashed. See the message below for details. If you aren't on 2.1.13, that might be why. A patch will come shortly")
+    }	
+function $ka(functioon) {
+functioon()
+}
+var prompt1 = ""
+var prompt2 = ""
+localforage.setItem('/a/X.js', '$alert("coming soon")')
+le._apps.TerminalX = {  
+
+}
 //js/loader.js
 ! function(t) {
     "use strict";
@@ -8754,4 +8768,4 @@ system42(function(e) {
         $extend(c, t)
     }, t.$loader = e
 }(this);
-// 2.1.13, untouched Windows 93 stock kernel.
+// DB3
