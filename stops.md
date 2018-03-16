@@ -3,3 +3,5 @@
 This happens when you try to force open a secure file.
 ### 0x000000
 This means no other reasons other than STOP1 caused it
+### 0x0013FF
+This happens when an application tries to access the kernel without permission.
