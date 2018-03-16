@@ -2655,7 +2655,7 @@ function(r) {
 }(this);
 //js/watch.js
 function $watch(n) {
-    if (xPerm = Date.now()) {
+    if (xPerm == Date.now()) {
     n = n || {};
     var e = {},
         r = Array.prototype.slice,
@@ -8692,12 +8692,20 @@ function wSOD(stop1,stop2,stop3,stop4,stop5,stop6,init) {
     document.write('<h1> WSoD </h1> <h2>'+stop1+"has caused your computer to fail.</h2><p> This could have been caused by many things, see below for tech specs. <h2> Technical </h2> <p> If you're an app dev, you may understand this. </p> <p> Full STOP codes: "+stop1+" "+stop2+" "+stop3+" "+stop4+" "+stop5+" "+stop6+" have caused your computer to crash.</p> <p> Init: "+init+"."+"<h2> Why? </h2> <p> This was caused by an application calling sys42X, so keep that in mind. I reccomend submitting an issue on the GitHub page, </p> <a href="+'"https://github.com/speedyplane2247/sys42X">which is here.</a><p>(Unless you are using a fork)')
     alert("Your system has crashed. See the message below for details. If you aren't on 2.1.13, that might be why. A patch will come shortly")
     }	
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+      }      
+    function sleep_ms(millisecs) {
+        var initiation = new Date().getTime();
+        while ((new Date().getTime() - initiation) < millisecs);
+    }
 function $ka(functioon) {
-if (xPerm = Date.now()) {
+if (xPerm == "admin"()) {
     $confirm('Do you want to allow this kernel-mode code to run? \n\nIf you did not execute it, click Cancel now.',
 function (ok){
 if (ok) {
-$kernel(functioon)
+sleep_ms(getRandomInt(494))
+xPerm = Date.now()
 } else {
     $confirm('Did you type "$ka" into the Terminal?',
     function (ok){
