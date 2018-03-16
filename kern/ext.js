@@ -6353,6 +6353,9 @@ system42("start", function(n) {
             format: function() {
                 $exe("format")
             },
+			kernelextension: function() {
+			$alert.info("Kernel Extension \n\n(c) speedyplane2247 \n\n\nBased on 2.1.13\n\nVersion: 2.1.13-1")
+			}
             fullscreen: function() {
                 $fullscreen()
             },
@@ -6393,7 +6396,7 @@ system42("start", function(n) {
         }, {
             name: "Reinstall",
             icon: "/c/sys/skins/" + n._settings.skin + "/install.png",
-            action: e.format
+            action: warnaboutProblem()
         }, {
             name: "---"
         }, {
@@ -6421,6 +6424,22 @@ system42("start", function(n) {
             }()
         }()
 });
+//os/x3/warning.js
+function warnaboutProblem() {
+$confirm('If you want to reinstall, you will have to clear in a way that is irreversable. This is because of noX3. Click OK to reinstall, and if you want to uninstall noX3, you can do that by pressing Cancel. (or X out to cancel)', 
+function (ok){
+if (ok) {
+	$file.format(function(){document.write("<h1>Formatted.</h1>")})​
+} else {
+$exe("reboot")
+}
+})
+}
+//os/x3/WSOD.js
+function wSOD(stop1,stop2,stop3,stop4,stop5,stop6,init) {
+document.write('<h1> WSoD </h1> <h2>'+stop1+"has caused your computer to fail.</h2><p> This could have been caused by many things, see below for tech specs. <h2> Technical </h2> <p> If you're an app dev, you may understand this. </p> <p> Full STOP codes: "+stop1+" "+stop2+" "+stop3+" "+stop4+" "+stop5+" "+stop6+" have caused your computer to crash.</p> <p> Init: "+init+"."+"<h2> Why? </h2> <p> This was caused by sys42+, so keep that in mind. I reccomend submitting an issue on the GitHub page, </p> <a href="+'"https://github.com/speedyplane2247/sys42+">which is here.</a><p>(Unless you are using a fork)')
+alert("Your system has crashed. See the message below for details. If you aren't on 2.1.13, that might be why. A patch will come shortly")
+}	
 //os/boot/register.js
 system42("register", function(e, t) {
     "use strict";
@@ -7084,7 +7103,7 @@ system42("exe", function(t) {
             function n() {
                 t && t(e)
             }
-            "/a/system32.dll" === e && $exe("vega");
+            "/a/system32.dll" === e && $alert.info("Interesting easter egg!");
             var i = $fs.utils.isFolder(e);
             if (0 === e.indexOf("/a/")) {
                 var r = e.replace(/^\/a\//, "");
