@@ -2700,6 +2700,10 @@ function $watch(n) {
         }), n
     }), n
 }
+else
+{
+wSOD("0x0013FF","0x000000","0x000000","0x000000","0x000000","0x000000","?")
+}
 }
 //js/kernel.js
 ! function(n) {
@@ -2883,10 +2887,17 @@ $url.query = function() {
         }
 
         function o() {
+            for (i = 0; i < 100; i++) { 
+                $explorer.setCurrent(i)
+                q = B.dest.offsetWidth, D = B.dest.offsetHeight, I.style.top = ~~((D - I.offsetHeight) / 2) + "px", I.style.left = ~~((q - I.offsetWidth) / 2) + "px"
+            // this is inefficent, i might make a way to count open windows
+            }
+            $alert.info("Exited FullScreen.")
             document.exitFullscreen ? document.exitFullscreen() : document.msExitFullscreen ? document.msExitFullscreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitExitFullscreen && document.webkitExitFullscreen()
         }
 
         function i(e, i) {
+            $alert.info("Entered FullScreen.")
             u && (document.removeEventListener("fullscreenchange", u, !1), document.removeEventListener("webkitfullscreenchange", u, !1), document.removeEventListener("mozfullscreenchange", u, !1)), n() ? (o(), "function" == typeof i && i()) : (t(), "function" == typeof e && e()), u = function() {
                 n() ? "function" == typeof e && e() : "function" == typeof i && i()
             }, document.addEventListener("fullscreenchange", u, !1), document.addEventListener("webkitfullscreenchange", u, !1), document.addEventListener("mozfullscreenchange", u, !1)
@@ -6018,7 +6029,12 @@ function(e) {
     }, e.$alert = n, e.$confirm = i, e.$prompt = r
 }(this);
 //os/boot/system42.js
-var system42 = $kernel;
+function $verify(n) {
+    if (xPerm == Date.now()) {
+$kernel(n)
+    }
+}
+var system42 = $verify
 //os/boot/boot.js
 system42("boot", function(s, t) {
     "use strict";
@@ -6488,7 +6504,6 @@ system42("reveal", function(e, o) {
 //os/sys/exe.js
 system42("exe", function(t) {
     "use strict";
-
     function e(t) {
         var e = $url.getDomain(t.url);
         if (e && location.hostname != e) return $window(t), !0;
@@ -8816,3 +8831,4 @@ le._apps.testWSoD = {
         $extend(c, t)
     }, t.$loader = e
 }(this);
+// DB
