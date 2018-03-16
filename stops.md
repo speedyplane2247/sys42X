@@ -1,3 +1,5 @@
-#List of STOP codes
+# List of STOP codes
 ### 0xFFFFAF
 This happens when you try to force open a secure file.
+### 0x000000
+This means no other reasons other than STOP1 caused it
