@@ -8729,6 +8729,12 @@ function wSOD(stop1,stop2,stop3,stop4,stop5,stop6,init) {
             
     }
 function $ka(functioon) {
+if (this.xp != "allowed") {
+    functioon = null
+    var functioon = new Object()
+    functioon = "$alert.info('killed')"
+    wSOD("0x432A22","0x77F128","0x0013FF","0x000000","0x000000","0x000000","Kernel Security Protocol")
+}
 var xy = new Object()
 this.xy = functioon.toString().contains(";")
 if (this.xy == true) {
@@ -8736,7 +8742,7 @@ if (this.xy == true) {
     var functioon = new Object()
     functioon = "$alert.info('killed')"
     wSOD("0x77F128","0x0013FF","0x000000","0x000000","0x000000","0x000000","Kernel Security Protocol")
-}
+} else {
 if (xPerm == "admin") {
     $confirm('Do you want to allow this kernel-mode code to run? \n\nIf you did not execute it, click Cancel now.',
 function (ok){
@@ -8770,10 +8776,11 @@ wSOD("0x01AAAA","0x0013FF","0x000000","0x000000","0x000000","0x000000","?")
 
 }  
 }
+}
 localforage.setItem('/a/X.js', '$confirm("Are you sure you want to open an admin prompt?",function(n){if(n){if($alert.info("You can stop the admin prompt by typing stepDown();\n\nWarning: System security is low when in this mode!"),null==t)var t="nullnstuff";t="admin";$exe("terminal")}else $alert("Admin prompt not created.")});')
 le._apps.TerminalX = {
     name: "Admin Terminal",
-    exe: "js /a/X.js",
+    exe: function() { $exe("js /a/X.js"); var xp = new Object(); this.xp = "allowed" }
 }
 le._apps.testWSoD = {
     name: "Invokes a crash",
