@@ -11,3 +11,5 @@ This is called when something is trying to brute force the variable timer.
 This is a user-initiated WSoD.
 ### 0x77F128
 This happens when an application attempts to hijack $ka. (Triggered by ';', which may deter some regular commands, but it's this or using a code-signing database, as this is what $ka hijacks are forced to use)
+### 0x432A22
+This happens if an application not authorized to issue a $ka issues a $ka.
