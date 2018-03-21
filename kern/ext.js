@@ -3514,6 +3514,165 @@ function $undo(n) {
         $extend(n, e)
     }, e.$screenshot = t
 }(this);
+//startup/startup.js
+var isFirstRun = Object()
+this.isFirstRun = $store.getRaw('/f.dat')
+if (this.isFirstRun == null) {
+setupUser()
+} else
+{
+    readUserFile()
+}
+/*
+Example User File
+---
+userfileheader;07;example;p;05;12345;ender;;08;example1;p;06;123456;;
+*/
+var doRun = new Object()
+var userObject = new Object()
+var userTable = new Object()
+this.userTable = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9","0"]
+this.userObject = $store.getRaw('/users.js')
+for (xc = 0; xc++; xc < 27) {
+
+}
+//createuser
+function setupUser() {
+    if (this.userTable == null) {
+        var userTable = new Object()
+        this.userTable = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9","0"]
+        }
+        if (this.currentFile == null) {
+            var currentFile = new Object()
+        }
+        else
+        {
+            this.currentFile = ""
+        }
+    $prompt('Please type the name of the first user:', 'example', function(ok, text) {
+        if (ok) {
+            var textLength = new Object()
+            this.textLength = text.toString().length
+            if (this.textLength > 99) {
+                $alert.info("Your username can't be over 99 charactors long.")
+                setupUser();
+            }
+            for (i = 0; i++; i < this.textLength + 1) {
+                if (text.toString().charAt(i) == ";") {
+                    $alert.info("Invalid character! Please only use alphanumeric characters.")
+                    setupUser();
+                } else {
+                    this.currentFile = "userfileheader;"+this.textLength+";"+text+";p;"
+                }
+            }
+    }
+        else {
+            $alert.info("You will be prompted on the next reboot to setup.")
+        }
+        });
+        $prompt('Please type the password', '12345', function(ok, text) {
+            if (ok) {
+               var textLengthX = new Object()
+               this.textLengthX = text.toString().length
+               if (this.textLength > 99) {
+                $alert.info("Your username can't be over 99 charactors long.")
+                setupUser();
+               }
+               for (i = 0; i++; i < this.textLengthX + 1) {
+                if (text.toString().charAt(i) == ";") {
+                    $alert.info("Invalid character! Please only use alphanumeric characters.")
+                    setupUser();
+                } else {
+                    this.currentFile = this.currentFile + textLengthX.toString()+";"+text+";ender"
+                    $store.set("/f.dat","success")
+                    $store.set("/users.js",this.currentFile.toString())
+                }
+            }
+            }
+            });        
+}
+//startup/login.js
+function login() {
+var loginObject = new Object()
+this.loginObject = 0
+var tempVar = new Object()
+var scratchPad = new Object()
+var allowPad = new Object()
+tempVar = $store.getRaw("/users.js")
+scratchPad = tempVar.toString().indexOf("userfileheader;")
+if (scratchPad.toString() != "0") {
+allowPad = allowPad + 1
+}
+else
+{
+    $alert.error("Currupted userfile! \n\nReseting...");
+    setupUser();
+}
+scratchPad = tempVar.toString().charAt(17)
+var userLength = new Object()
+var userLengthX = new Object()
+userLength = scratchPad
+scratchPad = tempVar.toString().charAt(18)
+userLengthX = scratchPad
+var userLengthX2 = new Object()
+userLengthX2 = userLength + userLengthX
+var userLengthX3 = new Object()
+userLengthX3 = parseInt(userLengthX2)
+var userLengthX4 = new Object()
+userLengthX4 = userLengthX3 + 18
+// 19
+var username = new Object()
+for (i = 18; i++; i < userLengthX4) {
+    username = username + tempVar.toString().charAt(i)
+    var currentChar = new Object()
+    currentChar = i
+}
+if (tempVar.toString().indexOf(";p;").toString() != currentChar) {
+    $alert.error("Currupted userfile! \n\nReseting...");
+    setupUser();
+}
+scratchPad = tempVar.toString().charAt(26)
+var passLength = new Object()
+var passLengthX = new Object()
+passLength = scratchPad
+scratchPad = tempVar.toString().charAt(27)
+userLengthX = scratchPad
+var passLengthX2 = new Object()
+passLengthX2 = passLength + passLengthX
+var passLengthX3 = new Object()
+passLengthX3 = parseInt(passLengthX2)
+var passLengthX4 = new Object()
+passLengthX4 = passLengthX3 + 28
+var passname = new Object()
+for (i = 28; i++; i < userLengthX4) {
+    passname = passname + tempVar.toString().charAt(i)
+    var currentCharX = new Object()
+    currentCharX = i
+}
+if (tempVar.toString().indexOf(";ender;;").toString() != currentCharX) {
+    $alert.error("Currupted userfile! \n\nReseting...");
+    setupUser();
+}
+var xkk = new Object()
+$prompt('Username: ', 'boi', function(ok, text) {
+    if (ok) {
+       if (username == text) {
+           this.xkk = "verifiedUsername"
+       }
+    }
+    });
+    $prompt('Password: ', 'boi', function(ok, text) {
+        if (ok) {
+           if (passname == text && this.xkk == "verifiedUsername") {
+               continueLogin(username)
+           }
+        }
+        });
+    }
+    function continueLogin(username) {
+        $explorer.refresh()
+    }
+//userfileheader;07;example;p;05;12345;ender;;08;example1;p;06;123456;;
 //js/socket.js
 ! function(n) {
     "use strict";
