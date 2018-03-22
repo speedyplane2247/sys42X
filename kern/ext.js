@@ -3670,7 +3670,16 @@ $prompt('Username: ', 'boi', function(ok, text) {
         });
     }
     function continueLogin(username) {
-        $explorer.refresh()
+        var verfiedUsername = new Object()
+        var internalUser = new Object()
+        this.internalUser.user = username
+        if (username == "admin") {
+            this.internalUser.canKA = true
+        } else
+        {
+            this.internalUser.role = "standard"
+        }
+        verfiedUsername.username = username
     }
 //userfileheader;07;example;p;05;12345;ender;;08;example1;p;06;123456;;
 //js/socket.js
@@ -8887,7 +8896,18 @@ function wSOD(stop1,stop2,stop3,stop4,stop5,stop6,init) {
             });
             
     }
+    function loginRefresh() {
+        $file.delete("/a/users.js")
+        $exe("reboot")
+    }
 function $ka(functioon) {
+    var xpp = new Object()
+    if (verfiedUsername == this.internalUser.user && this.internalUser.canKA == true) {
+this.xpp = "yes"
+    } else {
+        $alert.error("You don't have permission to $ka. Please login as administrator.")
+        $notif("Failed Login","You recently failed at making a $ka request. You can fix this by making a new account called 'admin'. If you wish to do this, type loginRefresh() into the prompt.")
+    }
 if (this.xp != "allowed") {
     functioon = null
     var functioon = new Object()
@@ -8902,7 +8922,7 @@ if (this.xy == true) {
     functioon = "$alert.info('killed')"
     wSOD("0x77F128","0x0013FF","0x000000","0x000000","0x000000","0x000000","Kernel Security Protocol")
 } else {
-if (xPerm == "admin") {
+if (xPerm == "admin" && this.xpp == "yes") {
     $confirm('Do you want to allow this kernel-mode code to run? \n\nIf you did not execute it, click Cancel now.',
 function (ok){
 if (ok) {
