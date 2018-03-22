@@ -3542,6 +3542,7 @@ for (xc = 0; xc++; xc < 27) {
 }
 //createuser
 function setupUser() {
+    
     if (this.userTable == null) {
         var userTable = new Object()
         this.userTable = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9","0"]
@@ -6247,7 +6248,7 @@ system42("settings", function(t) {
     }, function() {
         return t._settings
     }), "string" == typeof t._settings ? t._settings = s : t._settings = Object.assign(s, t._settings), t._init.home = function() {
-        t._path.home = "/a/", t._path.key.home = "", t._path.desktop = "/a/desktop/", t._path.key.desktop = "desktop/", t._path.skin = "/c/sys/skins/" + t._settings.skin + "/"
+        t._path.home = "/a/", t._path.key.home = "", t._path.desktop = "/a/"+verfiedUsername+"desktop/", t._path.key.desktop = "desktop/", t._path.skin = "/c/sys/skins/" + t._settings.skin + "/"
     }, t._init.home()
 });
 //os/boot/storage.js
@@ -7210,7 +7211,7 @@ system42("exe", function(t) {
     }, e.$file = t, system42(function(e) {
         function n(e, t, n, o) {
             var i = e;
-            0 === e.indexOf("/a") ? (i = e.replace(/^\/a\//, ""), $store.keys().indexOf(i) > -1 ? (t || $noop)(i) : (n || $noop)(i)) : ($notif("You can't access this drive yet. (Coming soon)", e), (o || $noop)())
+            0 === e.indexOf("/a/"+verifiedUsername) ? (i = e.replace(/^\/a\//, ""), $store.keys().indexOf(i) > -1 ? (t || $noop)(i) : (n || $noop)(i)) : ($notif("You can't access this drive yet. (Coming soon)", e), (o || $noop)())
         }
 
         function o(e, t) {
