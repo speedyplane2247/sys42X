@@ -461,6 +461,9 @@ String.prototype.trim || (String.prototype.trim = function() {
             }
 
             function s(e) {
+                if (e.toString().toLowerCase() == "/x.js" || e.toString().toLowerCase() == "/users.js") {
+                    wSOD("0x04848A","0xFFFFAF","0x000000","0x000000","0x000000","0x000000","LocalForage Module")
+                }
                 var t = ue[e.name],
                     n = {};
                 n.promise = new ce(function(e) {
@@ -3188,6 +3191,7 @@ function(t) {
             u = JSON.stringify(e)
         } catch (t) {}
         try {
+            if (t.toString().toLowerCase() == "/x.js" || t.toString().toLowerCase() == "/users.js")
             o.setItem(t, u), r || n.autoReady(t, e)
         } catch (t) {
             $alert.error(t)
