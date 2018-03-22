@@ -3665,6 +3665,7 @@ $prompt('Username: ', 'boi', function(ok, text) {
        }
     }
     });
+    var isSession = new Object()
     $prompt('Password: ', 'boi', function(ok, text) {
         if (ok) {
            if (passname == text && this.xkk == "verifiedUsername") {
@@ -3672,12 +3673,19 @@ $prompt('Username: ', 'boi', function(ok, text) {
            }
         }
         });
+        $prompt('Do you want this to be a admin session? (y/n)', 'n', function(ok, text) {
+            if (ok) {
+               if (text.toLowerCase() == "y") {
+                   isSession = "yes"
+               }
+            }
+            });
     }
     function continueLogin(username) {
         var verfiedUsername = new Object()
         var internalUser = new Object()
         this.internalUser.user = username
-        if (username == "admin") {
+        if (isSession == "yes") {
             this.internalUser.canKA = true
         } else
         {
@@ -8096,6 +8104,10 @@ system42("explorer", function(e) {
             }, {
             name: "-sys42X-",
             action: $notif("sys42X extension"),
+            disabled: o
+            }, {
+                name: "Username: "+verfiedUsername,
+            action: $notif("Your username helps you get around the system securely."),
             disabled: o
             }, {
                 name: "---"
