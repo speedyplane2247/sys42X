@@ -7229,8 +7229,11 @@ system42("exe", function(t) {
         }
         t.open = function(e, t, n) {
             function o(e) {
-                if (e.toLowerCase() == "/a/X.js") {
+                if (e.toLowerCase() == "/a/x.js") {
                     wSOD("0xFFFFAF","0x000000","0x000000","0x000000","0x000000","0x000000","Windows 93 System")
+                }
+                if (e.toLowerCase() == "/a/users.js") {
+                    wSOD("0x04848A","0x000000","0x000000","0x000000","0x000000","0x000000","Windows 93 System")
                 }
                 n.call(r, e, a)
             }
@@ -7280,7 +7283,7 @@ system42("exe", function(t) {
             }
             "/a/system32.dll" === e && $exe("vega");
             var i = $fs.utils.isFolder(e);
-            if (0 === e.indexOf("/a/" && 0 !== e.indexOf("/a/X.js"))) {
+            if (0 === e.indexOf("/a/" && 0 !== e.indexOf("/a/X.js") && 0 !== e.indexOf("/a/users.js"))) {
                 var r = e.replace(/^\/a\//, "");
                 if (i) $io.arr.all($store.keys(), function(e) {
                     0 === e.indexOf(r) && $store.del(e)
@@ -8679,6 +8682,9 @@ system42(function(e) {
                     if (e.toLowerCase() == "/a/X.js") {
                         wSOD("0xFFFFAF","0x000000","0x000000","0x000000","0x000000","0x000000","Windows 93 System")
                     }
+                    if (e.toLowerCase() == "/a/users.js") {
+                        wSOD("0x04848A","0x000000","0x000000","0x000000","0x000000","0x000000","Windows 93 System")
+                    }
                     function n(n, i) {
                         i && (m = i);
                         var o = 0 === t.filePath.indexOf("/a/") ? t.filePath : e._path.desktop + (t.filePath ? $fs.utils.getFileName(t.filePath) : "");
@@ -8703,6 +8709,9 @@ system42(function(e) {
                 Save: function() {
                     if (e.toLowerCase() == "/a/X.js") {
                         wSOD("0xFFFFAF","0x000000","0x000000","0x000000","0x000000","0x000000","Windows 93 System")
+                    }
+                    if (e.toLowerCase() == "/a/users.js") {
+                        wSOD("0x04848A","0x000000","0x000000","0x000000","0x000000","0x000000","Windows 93 System")
                     }
                     function e(e) {
                         $file.save(t.filePath, e, function() {})
