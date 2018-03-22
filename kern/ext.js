@@ -3676,7 +3676,7 @@ $prompt('Username: ', 'boi', function(ok, text) {
         $prompt('Do you want this to be a admin session? (y/n)', 'n', function(ok, text) {
             if (ok) {
                if (text.toLowerCase() == "y") {
-                   isSession = "yes"
+                   this.isSession = "yes"
                }
             }
             });
@@ -3685,7 +3685,7 @@ $prompt('Username: ', 'boi', function(ok, text) {
         var verfiedUsername = new Object()
         var internalUser = new Object()
         this.internalUser.user = username
-        if (isSession == "yes") {
+        if (this.isSession == "yes") {
             this.internalUser.canKA = true
         } else
         {
