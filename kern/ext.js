@@ -3663,6 +3663,8 @@ $prompt('Username: ', 'boi', function(ok, text) {
        if (username == text) {
            this.xkk = "verifiedUsername"
        }
+    } else {
+        tellUser();
     }
     });
     var isSession = new Object()
@@ -3671,13 +3673,19 @@ $prompt('Username: ', 'boi', function(ok, text) {
            if (passname == text && this.xkk == "verifiedUsername") {
                continueLogin(username)
            }
+        } else {
+            tellUser();
         }
         });
         $prompt('Do you want this to be a admin session? (y/n)', 'n', function(ok, text) {
             if (ok) {
                if (text.toLowerCase() == "y") {
                    this.isSession = "yes"
+               } else {
+                   this.isSession = "no"
                }
+            } else {
+                $alert.error("Since you didn't specify, it will be taken as a No.")
             }
             });
     }
@@ -12324,4 +12332,8 @@ system42('apps', function(le) { 'use strict';
       $.md5 = md5
     }
   })(this)
+  function tellUser() {
+      $alert.error("You didn't specify a username, so you're logging in as anonymous. Your data won't be saved.")
+      // your data will be saved, until later.
+  }
 // DB
