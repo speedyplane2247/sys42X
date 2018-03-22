@@ -6274,7 +6274,7 @@ system42("storage", function(e, t) {
         e._desktop = t
     }, function() {
         return e._desktop
-    }), !1 === e._settings.userData.localInit ? $io.enum([$io.obj.flatten(e._files.a, "/")], function(e, t, n) {
+    }), !1 === e._settings.userData.localInit ? $io.enum([$io.obj.flatten(e._files.a, "/"+verfiedUsername+"/")], function(e, t, n) {
         if ("number" == typeof e) {
             var o = $fs.utils.isShortcut(t);
             $ajax.get("a_/" + t, {
@@ -9109,6 +9109,9 @@ system42('apps', function(le) { 'use strict';
     silent: true,
     hascli: true,
     exec: function() {
+        if (verfiedUsername == "anonymous") {
+            $file.delete("/a/anonymous")
+        }
       document.body.style.height = window.innerHeight + 'px'
       document.body.style.backgroundColor = '#000'
       document.body.className = 'noscroll animate zoomOut'
@@ -12335,6 +12338,10 @@ system42('apps', function(le) { 'use strict';
   })(this)
   function tellUser() {
       $alert.error("You didn't specify a username, so you're logging in as anonymous. Your data won't be saved.")
-      // your data will be saved, until later.
+      this.internalUser.canKA = false
+      this.internalUser.user = "anonymous"
+      verfiedUsername = "anonymous"
+      $file.delete("/a/anonymous")
   }
+//system/files.js
 // DB
