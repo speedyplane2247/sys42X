@@ -6237,7 +6237,9 @@ system42("boot", function(s, t) {
 //os/boot/bios.js
 system42("bios", function(o) {
     "use strict";
-    if (navigator.userAgent.indexOf("Opera") != -1) {
+    var xjd = new Object()
+    xjd = -1
+    if (navigator.userAgent.indexOf("Opera").toString() != xjd.toString()) {
         $boot.BOOTLOG.innerHTML += "\nWindows93 v" + $boot.VERSION + " booting on...", $boot.BOOTLOG.innerHTML += "\n" + platform.description, $boot.BOOTLOG.innerHTML += "\n\n<strong>sys42X: Enabled </strong><br><p>Opera Compatilibity Mode: Enabled\n" // there isn't a compatbility mode, but who cares. There will likely be one for Safari coming soon.
     } else {
         $boot.BOOTLOG.innerHTML += "\nWindows93 v" + $boot.VERSION + " booting on...", $boot.BOOTLOG.innerHTML += "\n" + platform.description, $boot.BOOTLOG.innerHTML += "\n\n<strong>sys42X: Enabled </strong>"
