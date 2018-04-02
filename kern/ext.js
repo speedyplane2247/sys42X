@@ -1,13 +1,18 @@
 //js/polyfill/polyfill.js
 var xj = new Object()
 this.xj = 0
+var xn = new Object()
+xn._settings = new Object()
+xn._settings.skin = new Object()
+xn._settings.skin.path = "/c/sys/skins"
 var xk = new Object()
-xk.currentVersion = "DB26,2.1.13-1"
+xk.currentVersion = "DB27,2.1.13-1"
 xk.oldVersion = $db.getRaw("/version.txt")
 $db.set("/version.txt",xk.currentVersion)
 function changeLog(run) {
     if (xk.currentVersion !== xk.oldVersion || run == "yes") {
-    $alert.info("~Fixed Version Issue\n~Fixed Bug with version checking\n+changelog command.\n\nCurrent Version: "+xk.currentVersion+"!")
+    $alert.info("~Improvements to the themeing engine\n~bug fixes\n\nCurrent Version: "+xk.currentVersion+"!")
+}
 }
 String.prototype.trim || (String.prototype.trim = function() {
         return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "")
@@ -3711,7 +3716,7 @@ $prompt('Username: ', 'boi', function(ok, text) {
         verfiedUsername.username = username
     }
     le._apps.changelog = {
-        categories = "Utilities",
+        categories: "Utilities",
         hascli: false,
         exec: function() {
 var testVarA = "yes"
@@ -3721,17 +3726,32 @@ changeLog(testVarA)
     le._apps.settheme = {
         categories: 'Themes',
         hascli: true,
-        exec: function(themename) {
+        exec: function(themename,themepath) {
+            if (themepath == null) {
           if (themename === null) {
               $log.red("<strong>theme</strong>")
               $log.red("Allows your to set your own theme.<br>")
-              $log.red("Usage: settheme [name]")
+              $log.red("Usage: settheme [name] [path]")
           } else {
             system42.data._settings.skin = themename;
             $alert.info("Theme set to "+themename+"!")
             $explorer.refresh();
           }
         }
+        else {
+            
+            if (themename !== null) {
+                xn._settings.skin.path = themepath
+                system42.data._settings.skin = themename;
+            $alert.info("Theme set to "+themename+"!")
+            $explorer.refresh();
+            } else {
+                $log.red("<strong>theme</strong>")
+              $log.red("Allows your to set your own theme.<br>")
+              $log.red("Usage: settheme [name] [path]")
+            }
+    }
+    }
       }
 //userfileheader;07;example;p;05;12345;ender;;08;example1;p;06;123456;;
 //js/socket.js
@@ -6285,7 +6305,7 @@ system42("settings", function(t) {
     }, function() {
         return t._settings
     }), "string" == typeof t._settings ? t._settings = s : t._settings = Object.assign(s, t._settings), t._init.home = function() {
-        t._path.home = "/a/", t._path.key.home = "", t._path.desktop = "/a/"+verfiedUsername+"desktop/", t._path.key.desktop = "desktop/", t._path.skin = "/c/sys/skins/" + t._settings.skin + "/"
+        t._path.home = "/a/", t._path.key.home = "", t._path.desktop = "/a/"+verfiedUsername+"desktop/", t._path.key.desktop = "desktop/", t._path.skin = xn._settings.skin.path + t._settings.skin + "/"
     }, t._init.home()
 });
 //os/boot/storage.js
@@ -6547,7 +6567,7 @@ system42("start", function(n) {
                     })
                 } else($io.is.obj(t[c]) || $io.is.arr(t[c])) && o.push({
                     name: c,
-                    icon: "/c/sys/skins/" + n._settings.skin + "/places/16/folder.png",
+                    icon: xn._settings.skin.path + n._settings.skin + "/places/16/folder.png",
                     items: function(n, t) {
                         return function() {
                             return s(n, t)
@@ -6564,8 +6584,8 @@ system42("start", function(n) {
         return $io.arr.all(i.sort(), function(i) {
             if (s[i] && s[i].exec) {
                 var o = s[i].name ? i + ' <em class="startmenu_cmd">(' + s[i].name + ")</em>" : i,
-                    c = s[i].icon || "/c/sys/skins/" + n._settings.skin + "/programs.png";
-                0 !== c.indexOf("/") && (c = "/c/sys/skins/" + n._settings.skin + "/" + c), (s[i].cmd ? t : e).push({
+                    c = s[i].icon || xn._settings.skin.path + n._settings.skin + "/programs.png";
+                0 !== c.indexOf("/") && (c = xn._settings.skin.path + n._settings.skin + "/" + c), (s[i].cmd ? t : e).push({
                     name: o,
                     icon: c,
                     action: function(n) {
@@ -6612,47 +6632,47 @@ system42("start", function(n) {
         },
         i = [{
             name: "Programs",
-            icon: "/c/sys/skins/" + n._settings.skin + "/programs.png",
+            icon: xn._settings.skin.path + n._settings.skin + "/programs.png",
             items: function() {
                 return t(n._apps)
             }
         }, {
             name: "Documents",
-            icon: "/c/sys/skins/" + n._settings.skin + "/documents.png",
+            icon: xn._settings.skin.path + n._settings.skin + "/documents.png",
             items: function() {
                 return s(n._files.c, "c/")
             }
         }, {
             name: "Fullscreen",
-            icon: "/c/sys/skins/" + n._settings.skin + "/shutdown.png",
+            icon: xn._settings.skin.path + n._settings.skin + "/shutdown.png",
             action: e.fullscreen
         }, {
             name: "Find",
-            icon: "/c/sys/skins/" + n._settings.skin + "/find.png",
+            icon: xn._settings.skin.path + n._settings.skin + "/find.png",
             action: e.find
         }, {
             name: "Help",
-            icon: "/c/sys/skins/" + n._settings.skin + "/help.png",
+            icon: xn._settings.skin.path + n._settings.skin + "/help.png",
             action: e.help
         }, {
             name: "Run...",
-            icon: "/c/sys/skins/" + n._settings.skin + "/run.png",
+            icon: xn._settings.skin.path + n._settings.skin + "/run.png",
             action: runPrompt()
         }, {
             name: "---"
         }, {
             name: "Reinstall",
-            icon: "/c/sys/skins/" + n._settings.skin + "/install.png",
+            icon: xn._settings.skin.path + n._settings.skin + "/install.png",
             action: e.format
         }, {
             name: "---"
         }, {
             name: "Reboot...",
-            icon: "/c/sys/skins/" + n._settings.skin + "/shutdown.png",
+            icon: xn._settings.skin.path + n._settings.skin + "/shutdown.png",
             action: e.reboot
         }, {
             name: "Shutdown",
-            icon: "/c/sys/skins/" + n._settings.skin + "/shutdown.png",
+            icon: xn._settings.skin.path + n._settings.skin + "/shutdown.png",
             action: e.shutdown
         }];
     $menu(document.getElementById("s42_start"), i, {
@@ -7042,7 +7062,7 @@ system42("exe", function(t) {
             l || $io.obj.each(s[e], function(i, n) {
                 n.replace(/(.+)\./, function(i, s) {
                     $io.arr.all(s.split("_"), function(i) {
-                        t === i && (l = "/c/sys/skins/" + le._settings.skin + "/" + e + "/" + n)
+                        t === i && (l = xn._settings.skin.path + le._settings.skin + "/" + e + "/" + n)
                     })
                 })
             })
@@ -7053,11 +7073,11 @@ system42("exe", function(t) {
         return function(e) {
             var i = (e || "").split("/");
             n("ext", t), n("type", i[1]), n("mime", i[0])
-        }(i), l || (l = "/c/sys/skins/" + le._settings.skin + "/file.png"), l
+        }(i), l || (l = xn._settings.skin.path + le._settings.skin + "/file.png"), l
     }
 
     function n(e) {
-        return "/" === e ? "/c/sys/skins/" + le._settings.skin + "/devices/computer.png" : "/a/" === e ? "/c/sys/skins/" + le._settings.skin + "/devices/drive-storage.gif" : "/c/" === e ? "/c/sys/skins/" + le._settings.skin + "/devices/drive-harddisk.gif" : s.utils.resolvePath(e) === le._path.home ? "/c/sys/skins/" + le._settings.skin + "/places/user-home.png" : "/c/sys/skins/" + le._settings.skin + "/places/folder.png"
+        return "/" === e ? xn._settings.skin.path + le._settings.skin + "/devices/computer.png" : "/a/" === e ? xn._settings.skin.path + le._settings.skin + "/devices/drive-storage.gif" : "/c/" === e ? xn._settings.skin.path + le._settings.skin + "/devices/drive-harddisk.gif" : s.utils.resolvePath(e) === le._path.home ? xn._settings.skin.path + le._settings.skin + "/places/user-home.png" : xn._settings.skin.path + le._settings.skin + "/places/folder.png"
     }
     var s = {};
     s.utils = {}, s.utils.find = function(e, t) {
@@ -7074,7 +7094,7 @@ system42("exe", function(t) {
             (l = l.concat("hexed", "code", "iframe")) && $io.arr.all(l, function(n) {
                 if (-1 === i.indexOf(n)) {
                     i.push(n);
-                    var l = le._apps[n].icon ? s.utils.normalizeIcon(le._apps[n].icon) : "/c/sys/skins/" + le._settings.skin + "/programs.png";
+                    var l = le._apps[n].icon ? s.utils.normalizeIcon(le._apps[n].icon) : xn._settings.skin.path + le._settings.skin + "/programs.png";
                     t.push({
                         name: le._apps[n].name || $io.str.capitalise(n),
                         icon: l,
@@ -7170,7 +7190,7 @@ system42("exe", function(t) {
             r = t(e, l);
         return i(e, l, r)
     }, s.utils.normalizeIcon = function(e) {
-        return 0 === e.indexOf("/") || 0 === e.indexOf("http") ? e : "/c/sys/skins/" + le._settings.skin + "/" + e
+        return 0 === e.indexOf("/") || 0 === e.indexOf("http") ? e : xn._settings.skin.path + le._settings.skin + "/" + e
     }, s.utils.getInfo = function(e) {
         if (s.utils.isFolder(e)) {
             var l = n(e),
@@ -7740,7 +7760,7 @@ system42("explorer", function(e) {
             }), o.appendChild(E), b()
         } else {
             var R = $extend({
-                icon: "/c/sys/skins/" + e._settings.skin + "/places/folder.png",
+                icon: xn._settings.skin.path + e._settings.skin + "/places/folder.png",
                 baseClass: "ui_explorer_window"
             }, w.window, {
                 title: i,
