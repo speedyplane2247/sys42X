@@ -3702,6 +3702,21 @@ $prompt('Username: ', 'boi', function(ok, text) {
         }
         verfiedUsername.username = username
     }
+    le._apps.setheme = {
+        categories: 'Themes',
+        hascli: true,
+        exec: function(themename) {
+          if (themename === null) {
+              $log.red("<strong>theme</strong>")
+              $log.red("Allows your to set your own theme.<br>")
+              $log.red("Usage: settheme [name]")
+          } else {
+            system42.data._settings.skin = themename;
+            $alert.info("Theme set to "+themename+"!")
+            $explorer.refresh();
+          }
+        }
+      }
 //userfileheader;07;example;p;05;12345;ender;;08;example1;p;06;123456;;
 //js/socket.js
 ! function(n) {
@@ -9545,6 +9560,21 @@ system42('apps', function(le) { 'use strict';
       $exe('doctor --clean');
       $explorer.refresh()
       $exe('fx reset');
+    }
+  }
+  ,'settheme': {
+    categories: 'Themes',
+    hascli: true,
+    exec: function(themename) {
+      if (themename == null) {
+          $log.red("<strong>theme</strong>")
+          $log.red("Allows your to set your own theme.<br>")
+          $log.red("Usage: settheme [name]")
+      } else {
+        system42.data._settings.skin = themename;
+        $alert.info("Theme set to "+themename+"!")
+        $explorer.refresh();
+      }
     }
   }
 
