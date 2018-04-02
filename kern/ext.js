@@ -2,13 +2,12 @@
 var xj = new Object()
 this.xj = 0
 var xk = new Object()
-xk.currentVersion = "DB24,2.1.13-1"
-$db.set("/version.txt",xk.currentVersion)
+xk.currentVersion = "DB26,2.1.13-1"
 xk.oldVersion = $db.getRaw("/version.txt")
-function changeLog() {
-    if (xk.currentVersion !== xk.oldVersion) {
-    $alert.info("+Changelog\n\nCurrent Version: "+xk.currentVersion+"!")
-    }
+$db.set("/version.txt",xk.currentVersion)
+function changeLog(run) {
+    if (xk.currentVersion !== xk.oldVersion || run == "yes") {
+    $alert.info("~Fixed Version Issue\n~Fixed Bug with version checking\n+changelog command.\n\nCurrent Version: "+xk.currentVersion+"!")
 }
 String.prototype.trim || (String.prototype.trim = function() {
         return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "")
@@ -3711,7 +3710,15 @@ $prompt('Username: ', 'boi', function(ok, text) {
         }
         verfiedUsername.username = username
     }
-    le._apps.setheme = {
+    le._apps.changelog = {
+        categories = "Utilities",
+        hascli: false,
+        exec: function() {
+var testVarA = "yes"
+changeLog(testVarA)
+        }
+    }
+    le._apps.settheme = {
         categories: 'Themes',
         hascli: true,
         exec: function(themename) {
