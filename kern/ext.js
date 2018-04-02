@@ -9532,7 +9532,6 @@ system42('apps', function(le) { 'use strict';
     }
   }
 
-
   ,'killall': {
     categories: 'Utility',
     hascli: true,
@@ -9544,6 +9543,7 @@ system42('apps', function(le) { 'use strict';
         $window.destroy(el);
       });
       $exe('doctor --clean');
+      $explorer.refresh()
       $exe('fx reset');
     }
   }
