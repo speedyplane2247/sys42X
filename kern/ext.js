@@ -3554,6 +3554,7 @@ function setupUser() {
         {
             this.currentFile = ""
         }
+        $alert.info("Remember: Did you load your files.json? If you didn't that's fine, you just won't be able to access the custom themes.")
     $prompt('Please type the name of the first user:', 'example', function(ok, text) {
         if (ok) {
             var textLength = new Object()
