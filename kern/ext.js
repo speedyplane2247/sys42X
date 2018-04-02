@@ -2,6 +2,14 @@
 var xj = new Object()
 this.xj = 0
 var xk = new Object()
+xk.currentVersion = "DB24,2.1.13-1"
+$db.set("/version.txt",xk.currentVersion)
+xk.oldVersion = $db.getRaw("/version.txt")
+function changeLog() {
+    if (xk.currentVersion !== xk.oldVersion) {
+    $alert.info("+Changelog\n\nCurrent Version: "+xk.currentVersion+"!")
+    }
+}
 String.prototype.trim || (String.prototype.trim = function() {
         return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "")
     }), Date.now = Date.now || function() {
